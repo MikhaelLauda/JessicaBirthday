@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jessica's Birthday Invitation</title>
+<!-- Import custom font from Google Fonts -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Comic+Sans+MS&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Concert+One:wght@400;700&display=swap">
+<style>
+    body {
+        font-family: 'Comic Sans MS', cursive; /* Use Comic Sans font */
+        margin: 0;
+        padding: 0;
+        font-size: 30px;
+        color: #552C2C;
+        background-color: #FFEBDB; /* Pink theme color */
+    }
+    .container {
+        text-align: center;
+        padding: 50px;
+    }
+    .invitation-card {
+        display: none;
+    }
+    #open-btn {
+        font-family: 'Concert One', cursive; /* Use Dancing Script font */
+        background-color: #f3df7d; /* Custom background color */
+        color: #552C2C; /* Custom font color */
+        padding: 15px 30px; /* Custom padding */
+        border: none;
+        border-radius: 8px; /* Rounded corners */
+        font-size: 20px;
+        cursor: pointer;
+        transition: background-color 0.3s ease; /* Smooth color transition */
+    }
+    #open-btn:hover {
+        background-color: #FF1493; /* Darker color on hover */
+    }
+    #play-btn {
+        position: fixed;
+        bottom: 35px;
+        right: 35px;
+        background-color: #e983d8;
+        color: white;
+        padding: 10px; /* Adjusted padding */
+        border: none;
+        border-radius: 50%;
+        font-size: 10px;
+        cursor: pointer;
+        width: 40px; /* Set a fixed width */
+        height: 40px; /* Set a fixed height */
+        line-height: 1; /* Set line-height to 1 */
+        vertical-align: middle; /* Vertically center the content */
+    }
+    #invitation-card img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+        margin: 0 auto; /* Center the image */
+    }
+</style>
+</head>
+<body>
+<div class="container">
+    <h1 id="invitation-title">YOU ARE INVITED</h1>
+    <button id="open-btn">Open Invitation</button>
+    <div class="invitation-card" id="invitation-card">
+        <img src="Invitation.png" alt="Invitation Card">
+        <audio id="background-music" autoplay loop>
+            <source src="JOY HBD.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+    </div>
+</div>
+<button id="play-btn">&#9658;</button>
+<script>
+    document.getElementById("open-btn").addEventListener("click", function() {
+        document.getElementById("invitation-title").style.display = "none";
+        document.getElementById("open-btn").style.display = "none";
+        document.getElementById("invitation-card").style.display = "block";
+    });
+
+    document.getElementById("play-btn").addEventListener("click", function() {
+        var music = document.getElementById("background-music");
+        if (music.paused) {
+            music.play();
+            document.getElementById("play-btn").innerHTML = "&#9658;";
+        } else {
+            music.pause();
+            document.getElementById("play-btn").innerHTML = "&#9646;&#9646;";
+        }
+    });
+
+    // Play audio on page load
+    document.addEventListener("DOMContentLoaded", function() {
+        document.getElementById("background-music").play();
+    });
+</script>
+</body>
+</html>
