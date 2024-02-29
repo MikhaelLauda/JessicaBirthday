@@ -67,7 +67,7 @@
     <button id="open-btn">Open Invitation</button>
     <div class="invitation-card" id="invitation-card">
         <img src="Invitation.png" alt="Invitation Card">
-        <audio id="background-music" autoplay loop>
+        <audio id="background-music" loop>
             <source src="JOY HBD.mp3" type="audio/mpeg">
             Your browser does not support the audio element.
         </audio>
@@ -79,6 +79,14 @@
         document.getElementById("invitation-title").style.display = "none";
         document.getElementById("open-btn").style.display = "none";
         document.getElementById("invitation-card").style.display = "block";
+        // Attempt to play audio
+        var music = document.getElementById("background-music");
+        if (music.paused) {
+            music.play().catch(function(error) {
+                // Autoplay was prevented
+                console.error("Autoplay was prevented: ", error);
+            });
+        }
     });
 
     document.getElementById("play-btn").addEventListener("click", function() {
