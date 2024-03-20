@@ -15,6 +15,7 @@
         font-size: 30px;
         color: #552C2C;
         background-color: #FFEBDB; /* Pink theme color */
+        position: relative; /* Set position relative for confetti container */
     }
     .container {
         text-align: center;
@@ -59,6 +60,30 @@
         display: block;
         margin: 0 auto; /* Center the image */
     }
+    #confetti-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none; /* Ensure confetti doesn't interfere with button clicks */
+    }
+    .confetti {
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%; /* Make confetti circle */
+        opacity: 0.8;
+        animation: confetti-fall 10s linear infinite; /* Confetti animation */
+    }
+    @keyframes confetti-fall {
+        0% {
+            transform: translateY(-10vh) translateX(calc(100% * var(--x))); /* Start position */
+        }
+        100% {
+            transform: translateY(100vh) translateX(calc(100% * var(--x))); /* End position */
+        }
+    }
 </style>
 </head>
 <body>
@@ -74,6 +99,7 @@
     </div>
 </div>
 <button id="play-btn">&#9658;</button>
+<div id="confetti-container"></div> <!-- Confetti container -->
 <script>
     document.getElementById("open-btn").addEventListener("click", function() {
         document.getElementById("invitation-title").style.display = "none";
@@ -86,6 +112,8 @@
                 // Autoplay was prevented
                 console.error("Autoplay was prevented: ", error);
             });
+            // Generate confetti
+            generateConfetti();
         }
     });
 
@@ -103,7 +131,33 @@
     // Play audio on page load
     document.addEventListener("DOMContentLoaded", function() {
         document.getElementById("background-music").play();
+        // Generate confetti immediately on page load
+        generateConfetti();
     });
+
+    // Function to generate confetti
+    function generateConfetti() {
+        for (let i = 0; i < 150; i++) { // Increased number of confetti
+            createConfetti();
+        }
+    }
+
+    // Function to create a single confetti
+    function createConfetti() {
+        const confetti = document.createElement("div");
+        confetti.className = "confetti";
+        confetti.style.left = `${Math.random() * window.innerWidth}px`;
+        confetti.style.setProperty('--x', Math.random()); // Set random X position
+        confetti.style.animationDuration = `${Math.random() * 6 + 5}s`; // Randomize animation duration between 5s and 10s
+        confetti.style.backgroundColor = randomRainbowColor(); // Set random rainbow color
+        document.getElementById("confetti-container").appendChild(confetti); // Append confetti to container
+    }
+
+    // Function to generate random rainbow color
+    function randomRainbowColor() {
+        const colors = ['#FF0000', '#FF7F00', '#FFFF00', '#00FF00', '#0000FF', '#4B0082', '#9400D3']; // Rainbow colors
+        return colors[Math.floor(Math.random() * colors.length)];
+    }
 </script>
 </body>
 </html>
